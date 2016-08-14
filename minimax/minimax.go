@@ -1,11 +1,5 @@
 package minimax
 
-import (
-	"fmt"
-)
-
-//type childNodes []Node
-
 // Node represents a possible move
 type Node struct {
 	score      *int
@@ -61,8 +55,5 @@ func eval(node *Node) {
 		} else if !cn.isOpponent && *cn.score < *cn.parent.score {
 			cn.parent.score = cn.score
 		}
-
-		fmt.Println("cn: ", cn.data, ", score: ", *cn.score, ",opp:", cn.isOpponent)
-		//fmt.Println("_cn: ", cn.children)
 	}
 }

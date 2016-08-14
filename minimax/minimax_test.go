@@ -1,6 +1,9 @@
 package minimax
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestNew(t *testing.T) {
 	mm := New()
@@ -59,7 +62,7 @@ func TestAddPlayer(t *testing.T) {
 	}
 }
 
-func TestEvaluate(t *testing.T) {
+func TestEvaluateWikipedia(t *testing.T) {
 	r1 := New()
 
 	/*
@@ -121,7 +124,7 @@ func TestEvaluate(t *testing.T) {
 	r4b2 := r3b1.Add("r4b2")
 	r4b3 := r3b2.Add("r4b3")
 
-	r4b1.AddTerminal(10, "")
+	r4b1.AddTerminal(6, "")
 
 	r4b2.AddTerminal(6, "")
 	r4b2.AddTerminal(9, "")
@@ -149,5 +152,42 @@ func TestEvaluate(t *testing.T) {
 		t.Error("Score not evaluated")
 	} else if *r1.score != 6 {
 		t.Error("Evaluate failed: ", *r1.score)
+	}
+}
+
+func TestEvaluateYouTube(t *testing.T) {
+	root := New()
+
+	b := root.Add("B")
+	c := root.Add("C")
+	d := root.Add("D")
+
+	b.AddTerminal(3, "B1")
+	b.AddTerminal(12, "B2")
+	b.AddTerminal(8, "B3")
+
+	c.AddTerminal(2, "C1")
+	c.AddTerminal(4, "C2")
+	c.AddTerminal(6, "C3")
+
+	d.AddTerminal(14, "D1")
+	d.AddTerminal(5, "D2")
+	d.AddTerminal(2, "D3")
+
+	root.Evaluate()
+
+	if root.score == nil {
+		t.Error("Score not evaluated")
+	} else if *root.score != 3 {
+		t.Error("Evaluate failed: ", *root.score)
+	}
+
+	t1 := root.children[0]
+	t2 := b
+
+	if t1 == t2 {
+		fmt.Println("SAME")
+	} else {
+		fmt.Println("DIFFERENT")
 	}
 }
