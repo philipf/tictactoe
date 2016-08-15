@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println("hello:", board.NewBoard())
+	fmt.Println("hello:", board.New())
 }

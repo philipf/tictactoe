@@ -1,0 +1,4 @@
+.vscode/launch.json
+debug
+minimax/debug.test
+**/debug.test

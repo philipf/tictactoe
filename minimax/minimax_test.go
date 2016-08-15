@@ -8,7 +8,7 @@ import (
 func TestNew(t *testing.T) {
 	mm := New()
 
-	if mm.score != nil {
+	if mm.Score != nil {
 		t.Error("score should be nil")
 	}
 
@@ -35,9 +35,9 @@ func TestAddScore(t *testing.T) {
 
 	n := mm.AddTerminal(123, "")
 
-	if n.score == nil {
+	if n.Score == nil {
 		t.Error("score not calculated")
-	} else if *n.score != 123 {
+	} else if *n.Score != 123 {
 		t.Error("score should be 123")
 	}
 }
@@ -64,38 +64,6 @@ func TestAddPlayer(t *testing.T) {
 
 func TestEvaluateWikipedia(t *testing.T) {
 	r1 := New()
-
-	/*
-		b := root.Add("B")
-		c := root.Add("C")
-		d := root.Add("D")
-
-		b.AddTerminal(3, "B1")
-		b.AddTerminal(12, "B2")
-		b.AddTerminal(8, "B3")
-
-		c.AddTerminal(2, "C1")
-		c.AddTerminal(4, "C2")
-		c.AddTerminal(6, "C3")
-
-		d.AddTerminal(14, "D1")
-		d.AddTerminal(5, "D2")
-		d.AddTerminal(2, "D3")
-
-		//println("b?1", &root.children[0])
-		//println("b?2", &b)
-		root.Evaluate()
-
-		t1 := root.children[0]
-		t2 := b
-
-		if t1 == t2 {
-			fmt.Println("SAME")
-
-		} else {
-			fmt.Println("DIFFERENT")
-
-	*/
 
 	r2a := r1.Add("a")
 
@@ -148,10 +116,10 @@ func TestEvaluateWikipedia(t *testing.T) {
 	r4c3.AddTerminal(6, "")
 
 	r1.Evaluate()
-	if r1.score == nil {
+	if r1.Score == nil {
 		t.Error("Score not evaluated")
-	} else if *r1.score != 6 {
-		t.Error("Evaluate failed: ", *r1.score)
+	} else if *r1.Score != 6 {
+		t.Error("Evaluate failed: ", *r1.Score)
 	}
 }
 
@@ -176,10 +144,10 @@ func TestEvaluateYouTube(t *testing.T) {
 
 	root.Evaluate()
 
-	if root.score == nil {
+	if root.Score == nil {
 		t.Error("Score not evaluated")
-	} else if *root.score != 3 {
-		t.Error("Evaluate failed: ", *root.score)
+	} else if *root.Score != 3 {
+		t.Error("Evaluate failed: ", *root.Score)
 	}
 
 	t1 := root.children[0]
