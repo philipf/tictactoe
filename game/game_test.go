@@ -10,15 +10,14 @@ func TestGameInital(t *testing.T) {
 	var x *board.Board
 	var err interface{}
 
-	b := Start()
-	x = &b
+	x = Start()
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	move, score := GetNextMove(*x)
+	move, score, _ := GetNextMove(*x)
 	x.Print()
 
 	fmt.Println("Move: ", move)
@@ -38,8 +37,7 @@ func TestGameMove1(t *testing.T) {
 	var x *board.Board
 	var err interface{}
 
-	b := Start()
-	x = &b
+	x = Start()
 
 	x, err = x.MakeMove(1, 4)
 
@@ -48,7 +46,7 @@ func TestGameMove1(t *testing.T) {
 		return
 	}
 
-	move, score := GetNextMove(*x)
+	move, score, _ := GetNextMove(*x)
 	x.Print()
 
 	fmt.Println("Move: ", move)
@@ -68,8 +66,7 @@ func TestGameMovePlayer2Mistake(t *testing.T) {
 	var x *board.Board
 	var err interface{}
 
-	b := Start()
-	x = &b
+	x = Start()
 
 	x, err = x.MakeMove(1, 4)
 	x, err = x.MakeMove(2, 1)
@@ -79,7 +76,7 @@ func TestGameMovePlayer2Mistake(t *testing.T) {
 		return
 	}
 
-	move, score := GetNextMove(*x)
+	move, score, _ := GetNextMove(*x)
 	x.Print()
 
 	fmt.Println("Move: ", move)
