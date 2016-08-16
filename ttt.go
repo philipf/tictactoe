@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"ttt/game"
 	"ttt/score"
 )
@@ -13,27 +14,34 @@ func main() {
 	board.Print()
 
 	for true {
-		move, currentScore := game.GetNextMove(*board)
-		fmt.Printf("Best move: %d, score: %d\n", move, currentScore)
+		bestMove, currentScore, node := game.GetNextMove(*board)
+		fmt.Printf("Best move: %d, score: %d\n", bestMove, currentScore)
 
-		var i int
+		var i string
+		var move int
 		fmt.Printf("What is the next move for player %d:", board.PlayerToMove)
 		_, err := fmt.Scan(&i)
 
+		if i == "?" {
+			node.Print(0)
+			continue
+		} else {
+			move, err = strconv.Atoi(i)
+		}
+
 		if err != nil {
 			fmt.Println(err)
 			continue
 		}
 
-		board, err = board.MakeMove(board.PlayerToMove, i)
-
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
-
+		board, err = board.MakeMove(board.PlayerToMove, move)
 		print("\033[H\033[2J")
 		board.Print()
+
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
 
 		gameScore := score.Score(*board, board.PlayerToMove)
 

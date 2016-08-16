@@ -13,7 +13,7 @@ func Start() *board.Board {
 }
 
 // GetNextMove return the next move and the score
-func GetNextMove(b board.Board) (int, int) {
+func GetNextMove(b board.Board) (int, int, minimax.Node) {
 	rootNode := minimax.New()
 	calculatePossibleMoves(b, &rootNode, b.PlayerToMove)
 	//	rootNode.Print(0)
@@ -24,7 +24,7 @@ func GetNextMove(b board.Board) (int, int) {
 
 	move := bestBoard.LastMove
 	score := *rootNode.Score
-	return move, score
+	return move, score, rootNode
 }
 
 func calculatePossibleMoves(board board.Board, node *minimax.Node, playerToMove int) {
