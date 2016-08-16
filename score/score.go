@@ -2,7 +2,7 @@ package score
 
 import "ttt/board"
 
-var winningLines = [8][3]int8{
+var winningLines = [8][3]int{
 	{0, 1, 2}, // 0
 	{3, 4, 5}, // 1
 	{6, 7, 8}, // 2
@@ -13,7 +13,7 @@ var winningLines = [8][3]int8{
 	{2, 4, 6}} // 7
 
 // Score a board
-func Score(board board.Board, playerToMove int8) int {
+func Score(board board.Board, playerToMove int) int {
 	bs := board.State
 
 	for line := 0; line < len(winningLines); line++ {
@@ -33,10 +33,10 @@ func Score(board board.Board, playerToMove int8) int {
 	return 0 // stalemate
 }
 
-func scoreLine(bs [9]int8, line [3]int8, playerToMove int8) int {
-	var cell1 = int(bs[line[0]])
-	var cell2 = int(bs[line[1]])
-	var cell3 = int(bs[line[2]])
+func scoreLine(bs [9]int, line [3]int, playerToMove int) int {
+	var cell1 = bs[line[0]]
+	var cell2 = bs[line[1]]
+	var cell3 = bs[line[2]]
 
 	if cell1 == 0 || cell2 == 0 || cell3 == 0 {
 		return 0
@@ -44,7 +44,7 @@ func scoreLine(bs [9]int8, line [3]int8, playerToMove int8) int {
 
 	// a win: X X X
 	if cell1 == cell2 && cell2 == cell3 {
-		if cell1 == int(playerToMove) {
+		if cell1 == playerToMove {
 			return 2
 		} else {
 			return -1

@@ -17,16 +17,16 @@ func Start() board.Board {
 func GetNextMove(board board.Board) (int, int) {
 	rootNode := minimax.New()
 	suggestBestMove(board, &rootNode, board.PlayerToMove)
-	rootNode.Print(0)
+	//rootNode.Print(0)
 	rootNode.Evaluate()
 
-	move := rootNode.GetBestChildNode().Data
+	move := rootNode.GetBestChildNode().Data.(int)
 	score := *rootNode.Score
 	return move, score
 }
 
-func suggestBestMove(board board.Board, node *minimax.Node, playerToMove int8) {
-	for m := int8(0); m < 9; m++ {
+func suggestBestMove(board board.Board, node *minimax.Node, playerToMove int) {
+	for m := 0; m < len(board.State); m++ {
 		if board.State[m] != 0 {
 			continue
 		}
@@ -41,10 +41,10 @@ func suggestBestMove(board board.Board, node *minimax.Node, playerToMove int8) {
 		nextScore := score.Score(*nextBoard, playerToMove)
 
 		if nextScore == -2 {
-			nextNode := node.Add(int(m))
+			nextNode := node.Add(m)
 			suggestBestMove(*nextBoard, nextNode, playerToMove)
 		} else {
-			node.AddTerminal(int(nextScore), int(m))
+			node.AddTerminal(nextScore, m)
 		}
 	}
 }

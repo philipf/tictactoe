@@ -2,12 +2,12 @@ package board
 
 import "fmt"
 
-const boardSize = int8(9)
+const boardSize = 9
 
 // Board represents a tic-tac-to board
 type Board struct {
-	State        [boardSize]int8
-	PlayerToMove int8
+	State        [boardSize]int
+	PlayerToMove int
 }
 
 // New tic-tac-toe board
@@ -17,7 +17,7 @@ func New() *Board {
 }
 
 // MakeMove to set the move
-func (board *Board) MakeMove(player int8, move int8) (*Board, error) {
+func (board *Board) MakeMove(player int, move int) (*Board, error) {
 	if player != board.PlayerToMove {
 		return nil, fmt.Errorf("Invalid player %d, expected %d", player, board.PlayerToMove)
 	}
@@ -44,7 +44,7 @@ func (board *Board) MakeMove(player int8, move int8) (*Board, error) {
 }
 
 func (board *Board) reset() {
-	for index := int8(0); index < boardSize; index++ {
+	for index := 0; index < boardSize; index++ {
 		board.State[index] = 0
 	}
 }
@@ -67,7 +67,7 @@ func (board Board) Print() {
 	fmt.Println(text)
 }
 
-func translate(val int8) (result string) {
+func translate(val int) (result string) {
 	result = "-"
 
 	if val == 1 {

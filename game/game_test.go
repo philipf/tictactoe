@@ -8,22 +8,23 @@ import (
 func TestGameMove1(t *testing.T) {
 	b := Start()
 
-	x, err := b.MakeMove(1, 0)
-	x, err = x.MakeMove(2, 4)
-	x, err = x.MakeMove(1, 8)
-	//	x, err = x.MakeMove(2, 2)
+	//x, err := b.MakeMove(1, 4)
+	// x, err = x.MakeMove(2, 1)
+	// x, err = x.MakeMove(1, 0)
+	// x, err = x.MakeMove(2, 8)
+	// x, err = x.MakeMove(1, 3)
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
 
 	//x, _ = x.MakeMove(1, 5)
 
-	move, score := GetNextMove(*x)
-	x.Print()
+	move, score := GetNextMove(b)
+	b.Print()
 
 	fmt.Println("Move: ", move)
 	fmt.Println("score: ", score)
-	fmt.Println("player: ", x.PlayerToMove)
+	fmt.Println("player: ", b.PlayerToMove)
 }
