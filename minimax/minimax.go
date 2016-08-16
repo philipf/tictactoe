@@ -11,7 +11,7 @@ type Node struct {
 	parent     *Node
 	children   []*Node
 	isOpponent bool
-	Data       int
+	Data       interface{}
 }
 
 // New returns a new minimax structure
