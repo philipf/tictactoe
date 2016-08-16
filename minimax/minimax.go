@@ -71,16 +71,16 @@ func (node *Node) Print(level int) {
 }
 
 // AddTerminal a child node
-func (node *Node) AddTerminal(score int, data int) *Node {
+func (node *Node) AddTerminal(score int, data interface{}) *Node {
 	return node.add(&score, data)
 }
 
 // Add normal
-func (node *Node) Add(data int) *Node {
+func (node *Node) Add(data interface{}) *Node {
 	return node.add(nil, data)
 }
 
-func (node *Node) add(score *int, data int) *Node {
+func (node *Node) add(score *int, data interface{}) *Node {
 	childNode := Node{parent: node, Score: score, Data: data}
 
 	childNode.isOpponent = !node.isOpponent
