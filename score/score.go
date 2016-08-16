@@ -45,7 +45,7 @@ func scoreLine(bs [9]int, line [3]int, playerToMove int) int {
 	// a win: X X X
 	if cell1 == cell2 && cell2 == cell3 {
 		if cell1 == playerToMove {
-			return 2
+			return 1
 		} else {
 			return -1
 		}
