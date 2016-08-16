@@ -8,26 +8,27 @@ const boardSize = 9
 type Board struct {
 	State        [boardSize]int
 	PlayerToMove int
+	LastMove     int
 }
 
 // New tic-tac-toe board
 func New() *Board {
-	board := Board{PlayerToMove: 1}
+	board := Board{PlayerToMove: 1, LastMove: -1}
 	return &board
 }
 
 // MakeMove to set the move
 func (board *Board) MakeMove(player int, move int) (*Board, error) {
 	if player != board.PlayerToMove {
-		return nil, fmt.Errorf("Invalid player %d, expected %d", player, board.PlayerToMove)
+		return board, fmt.Errorf("Invalid player %d, expected %d", player, board.PlayerToMove)
 	}
 
 	if move < 0 || move >= boardSize {
-		return nil, fmt.Errorf("Invalid move %d, should be between 0 and %d", move, boardSize)
+		return board, fmt.Errorf("Invalid move %d, should be between 0 and %d", move, boardSize)
 	}
 
 	if board.State[move] != 0 {
-		return nil, fmt.Errorf("Invalid move, block %d already contains a move %d", move, board.State[move])
+		return board, fmt.Errorf("Invalid move, block %d already contains a move %d", move, board.State[move])
 	}
 
 	changedBoard := board.clone()
@@ -38,6 +39,7 @@ func (board *Board) MakeMove(player int, move int) (*Board, error) {
 		changedBoard.PlayerToMove = 1
 	}
 
+	changedBoard.LastMove = move
 	changedBoard.State[move] = player
 
 	return &changedBoard, nil
@@ -80,6 +82,9 @@ func translate(val int) (result string) {
 }
 
 func (board Board) clone() Board {
-	clone := Board{State: board.State}
+	clone := Board{
+		State:        board.State,
+		PlayerToMove: board.PlayerToMove,
+		LastMove:     board.LastMove}
 	return clone
 }

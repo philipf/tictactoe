@@ -1,31 +1,33 @@
 package game
 
 import (
-	"fmt"
 	"ttt/board"
 	"ttt/minimax"
 	"ttt/score"
 )
 
 // Start new game
-func Start() board.Board {
+func Start() *board.Board {
 	b := board.New()
-	return *b
+	return b
 }
 
 // GetNextMove return the next move and the score
-func GetNextMove(board board.Board) (int, int) {
+func GetNextMove(b board.Board) (int, int) {
 	rootNode := minimax.New()
-	suggestBestMove(board, &rootNode, board.PlayerToMove)
-	//rootNode.Print(0)
+	calculatePossibleMoves(b, &rootNode, b.PlayerToMove)
+	//	rootNode.Print(0)
 	rootNode.Evaluate()
 
-	move := rootNode.GetBestChildNode().Data.(int)
+	node := *rootNode.GetBestChildNode()
+	bestBoard := node.Data.(*board.Board)
+
+	move := bestBoard.LastMove
 	score := *rootNode.Score
 	return move, score
 }
 
-func suggestBestMove(board board.Board, node *minimax.Node, playerToMove int) {
+func calculatePossibleMoves(board board.Board, node *minimax.Node, playerToMove int) {
 	for m := 0; m < len(board.State); m++ {
 		if board.State[m] != 0 {
 			continue
@@ -34,17 +36,16 @@ func suggestBestMove(board board.Board, node *minimax.Node, playerToMove int) {
 		nextBoard, err := board.MakeMove(board.PlayerToMove, m)
 
 		if err != nil {
-			fmt.Println(err)
-			return
+			panic(err)
 		}
 
 		nextScore := score.Score(*nextBoard, playerToMove)
 
 		if nextScore == -2 {
-			nextNode := node.Add(m)
-			suggestBestMove(*nextBoard, nextNode, playerToMove)
+			nextNode := node.Add(nextBoard)
+			calculatePossibleMoves(*nextBoard, nextNode, playerToMove)
 		} else {
-			node.AddTerminal(nextScore, m)
+			node.AddTerminal(nextScore, nextBoard)
 		}
 	}
 }
