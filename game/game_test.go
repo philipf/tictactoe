@@ -3,7 +3,8 @@ package game
 import (
 	"fmt"
 	"testing"
-	"ttt/board"
+
+	"github.com/philipf/tictactoe/board"
 )
 
 func TestGameInital(t *testing.T) {

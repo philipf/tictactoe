@@ -2,7 +2,8 @@ package score
 
 import (
 	"testing"
-	"ttt/board"
+
+	"github.com/philipf/tictactoe/board"
 )
 
 func TestIncomplete(t *testing.T) {

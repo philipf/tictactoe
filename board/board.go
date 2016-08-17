@@ -1,3 +1,4 @@
+// Package board represents the board of a single turn in tic-tac-toe
 package board
 
 import "fmt"
@@ -6,9 +7,17 @@ const boardSize = 9
 
 // Board represents a tic-tac-to board
 type Board struct {
-	State        [boardSize]int
+	// Cells are access from 0 to 8, where 0 is top left and 8 bottom right.
+	// 0 1 2
+	// 3 4 5
+	// 6 7 8
+	State [boardSize]int
+
+	// Player who's move it is
 	PlayerToMove int
-	LastMove     int
+
+	// Last move that was made in the previous turn, -1 indicates no previous move
+	LastMove int
 }
 
 // New tic-tac-toe board
@@ -17,7 +26,7 @@ func New() *Board {
 	return &board
 }
 
-// MakeMove to set the move
+// MakeMove to record the new move
 func (board *Board) MakeMove(player int, move int) (*Board, error) {
 	if player != board.PlayerToMove {
 		return board, fmt.Errorf("Invalid player %d, expected %d", player, board.PlayerToMove)

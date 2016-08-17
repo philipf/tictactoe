@@ -1,18 +1,27 @@
 package score
 
-import "ttt/board"
+import "github.com/philipf/tictactoe/board"
 
 var winningLines = [8][3]int{
+	// Across
 	{0, 1, 2}, // 0
 	{3, 4, 5}, // 1
 	{6, 7, 8}, // 2
+
+	// Down
 	{0, 3, 6}, // 3
 	{1, 4, 7}, // 4
 	{2, 5, 8}, // 5
+
+	// Diagonals
 	{0, 4, 8}, // 6
 	{2, 4, 6}} // 7
 
-// Score a board
+// Score a board state for a given player
+// Returns:
+//  1 Player wins
+//  0 Draw
+// -1 Player loses
 func Score(board board.Board, playerToMove int) int {
 	bs := board.State
 
@@ -42,7 +51,7 @@ func scoreLine(bs [9]int, line [3]int, playerToMove int) int {
 		return 0
 	}
 
-	// a win: X X X
+	// a win: X X X or O O O
 	if cell1 == cell2 && cell2 == cell3 {
 		if cell1 == playerToMove {
 			return 1

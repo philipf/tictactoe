@@ -1,9 +1,9 @@
 package game
 
 import (
-	"ttt/board"
-	"ttt/minimax"
-	"ttt/score"
+	"github.com/philipf/minimax"
+	"github.com/philipf/tictactoe/board"
+	"github.com/philipf/tictactoe/score"
 )
 
 // Start new game
@@ -16,7 +16,7 @@ func Start() *board.Board {
 func GetNextMove(b board.Board) (int, int, minimax.Node) {
 	rootNode := minimax.New()
 	calculatePossibleMoves(b, &rootNode, b.PlayerToMove)
-	//	rootNode.Print(0)
+	//	rootNode.Print(0) // useful for debugging purposes
 	rootNode.Evaluate()
 
 	node := *rootNode.GetBestChildNode()

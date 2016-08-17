@@ -1,27 +1,28 @@
+// Package main is a console application for my first attempt at golang
 package main
 
 import (
 	"fmt"
 	"strconv"
-	"ttt/game"
-	"ttt/score"
+
+	"github.com/philipf/tictactoe/game"
+	"github.com/philipf/tictactoe/score"
 )
 
 func main() {
-	print("\033[H\033[2J")
+	clearScreen()
 	board := game.Start()
-
 	board.Print()
 
 	for true {
 		bestMove, currentScore, node := game.GetNextMove(*board)
 		fmt.Printf("Best move: %d, score: %d\n", bestMove, currentScore)
 
-		var i string
-		var move int
 		fmt.Printf("What is the next move for player %d:", board.PlayerToMove)
+		var i string
 		_, err := fmt.Scan(&i)
 
+		var move int
 		if i == "?" {
 			node.Print(0)
 			continue
@@ -35,7 +36,7 @@ func main() {
 		}
 
 		board, err = board.MakeMove(board.PlayerToMove, move)
-		print("\033[H\033[2J")
+		clearScreen()
 		board.Print()
 
 		if err != nil {
@@ -55,4 +56,9 @@ func main() {
 			break
 		}
 	}
+}
+
+func clearScreen() {
+	// Needs work doesn't clear screens on all terminal windows
+	print("\033[H\033[2J")
 }
