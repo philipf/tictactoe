@@ -83,7 +83,7 @@ func TestGameMovePlayer2Mistake(t *testing.T) {
 	fmt.Println("score: ", score)
 	fmt.Println("player: ", x.PlayerToMove)
 
-	if score != 2 {
+	if score != 1 {
 		t.Error("Score should favour player 1 and be 2, actual: ", score)
 	}
 

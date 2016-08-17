@@ -26,7 +26,7 @@ func TestPlayer1Win(t *testing.T) {
 
 	score := Score(*b, 1)
 
-	if score != 2 {
+	if score != 1 {
 		t.Error("Expected player 1 win, but score was: ", score)
 	}
 }
@@ -43,7 +43,7 @@ func TestPlayer2Win(t *testing.T) {
 
 	score := Score(*b, 2)
 
-	if score != 2 {
+	if score != 1 {
 		t.Error("Expected player 2 win, but score was: ", score)
 	}
 }
