@@ -20,7 +20,7 @@ func main() {
 
 		fmt.Printf("What is the next move for player %d:", board.PlayerToMove)
 		var i string
-		_, err := fmt.Scan(&i)
+		_, err := fmt.Scanf("%f\n", &i)
 
 		var move int
 		if i == "?" {
